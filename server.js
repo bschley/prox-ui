@@ -10,7 +10,7 @@ import usersRoutes from "./routes/users.js";
 import registerRoutes from "./routes/register.js";
 import nodesRoutes from "./routes/nodes.js";
 import sequelize from "./sequelize.js";
-import jwtAuth from "./auth.js";
+import { jwtAuth } from "./auth.js";
 
 export const getHashedPassword = (password) => {
   const sha256 = crypto.createHash('sha256');
@@ -32,6 +32,10 @@ const port = 3000;
 app.listen(port);
 
 app.use(cookieParser());
+app.use(function (req, res, next) {
+  res.locals.isLoggedIn = req.cookies.AuthToken ? true : false;
+  next();
+});
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -45,3 +49,7 @@ app.use("/login", loginRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
 app.use('/nodes', jwtAuth, nodesRoutes);
+
+app.get("*", (req, res) => {
+  res.status(404).send("Page not found");
+});

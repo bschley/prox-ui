@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
     });
 
     res.cookie("AuthToken", authToken);
-    res.redirect("/protected");
+    res.redirect("/nodes");
     return;
   } else {
     res.render("login", {
@@ -34,6 +34,11 @@ router.post("/", async (req, res) => {
       messageClass: "alert-danger",
     });
   }
+});
+
+router.post("/logout", (req, res) => {
+    res.clearCookie("AuthToken");
+    res.redirect("/login");
 });
 
 export default router;

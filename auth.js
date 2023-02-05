@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const jwtAth = (req, res, next) => {
+export const jwtAuth = (req, res, next) => {
   const authToken = req.cookies.AuthToken;
   try {
     const user = jwt.verify(authToken, process.env.JWT_SECRET);
@@ -11,5 +11,3 @@ const jwtAth = (req, res, next) => {
     return res.redirect("/");
   } 
 }
-
-export default jwtAth;

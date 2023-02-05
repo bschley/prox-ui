@@ -1,6 +1,14 @@
 <nav>
   <li><a href="/">Home</a></li>
   <li><a href="/users">Users</a></li>
+  <% if (isLoggedIn) { %>
   <li><a href="/nodes">Nodes</a></li>
+  <li>
+    <form action="login/logout" method="post">
+      <input type="submit" name="Logout" value="Logout" />
+    </form>
+  </li>
+  <% } else { %>
   <li><a href="/login">Login</a></li>
+  <% } %>
 </nav>
