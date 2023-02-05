@@ -3,6 +3,7 @@ import { jwtAuth } from "../auth.js";
 const router = express.Router();
 import user from "../models/user.js";
 import { getHashedPassword } from "../server.js";
+import uuid4 from "uuid4";
 
 router.get("/", jwtAuth, async (req, res) => {
   const users = await user.findAll();
@@ -12,8 +13,9 @@ router.get("/", jwtAuth, async (req, res) => {
 router.post("/create", (req, res) => {
   const { userName, password } = req.body;
   const hashedPassword = getHashedPassword(password);
+  const id = uuid4();
   
-  user.create({userName, password: hashedPassword}).then(() => {
+  user.create({id, userName, password: hashedPassword}).then(() => {
     res.redirect('/login');
   }).catch(err => {
     res.status(409).send('User may exists');

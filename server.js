@@ -11,16 +11,13 @@ import registerRoutes from "./routes/register.js";
 import nodesRoutes from "./routes/nodes.js";
 import sequelize from "./sequelize.js";
 import { jwtAuth } from "./auth.js";
+import proxmoxApi from "proxmox-api";
 
-import proxmoxApi, { ProxmoxEngine } from "proxmox-api";
-
-const engine = new ProxmoxEngine({
+export const promox = proxmoxApi({
   host: process.env.PROX_HOST,
   tokenID: process.env.PROX_TOKEN_ID,
   tokenSecret: process.env.PROX_TOKEN_SECRET,
 });
-
-export const proxmox = proxmoxApi(engine);
 
 export const getHashedPassword = (password) => {
   const sha256 = crypto.createHash('sha256');

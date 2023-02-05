@@ -3,8 +3,8 @@ import sequelize from "../sequelize.js";
 
 const user = sequelize.define('user', {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUIDV4,
+    
     primaryKey: true
   },
   userName: {

@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { proxmox as promox } from "../server.js";
+import { promox } from "../server.js";
 
 router.get("/", async (req, res) => {
   const nodes = await promox.nodes.$get();
