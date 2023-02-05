@@ -1,7 +1,9 @@
 <nav>
   <li><a href="/">Home</a></li>
   <% if (isLoggedIn) { %>
-  <li><a href="/users">Users</a></li>
+    <% if (role === 'Administrator') { %>
+      <li><a href="/users">Users</a></li>
+    <% } %>
   <li><a href="/nodes">Nodes</a></li>
   <li>
     <form action="login/logout" method="post">

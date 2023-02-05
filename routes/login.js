@@ -1,14 +1,18 @@
 import express from "express";
 const router = express.Router();
 import user from "../models/user.js";
-import { getHashedPassword } from "../server.js";
+import { getHashedPassword } from "../utils.js";
 import jwt from "jsonwebtoken";
+import { promox } from "../proxmox.js";
 
 router.get("/", (req, res) => {
   res.render("login", { title: "Login" });
 });
 
 router.post("/", async (req, res) => {
+  const access = await promox.access.acl.$get();
+  const roleid = access[0].roleid;
+
   const { userName, password } = req.body;
   const hashedPassword = getHashedPassword(password);
 
@@ -24,6 +28,8 @@ router.post("/", async (req, res) => {
       expiresIn: "1h",
     });
 
+    res.cookie("userName", userName);
+    res.cookie("role", roleid);
     res.cookie("AuthToken", authToken);
     res.redirect("/nodes");
     return;

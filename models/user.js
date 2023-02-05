@@ -4,7 +4,6 @@ import sequelize from "../sequelize.js";
 const user = sequelize.define('user', {
   id: {
     type: DataTypes.UUIDV4,
-    
     primaryKey: true
   },
   userName: {
@@ -17,6 +16,10 @@ const user = sequelize.define('user', {
     allowNull: false
   },
   apiToken: {
+    type: DataTypes.STRING,
+    unique: true
+  },
+  tokenSecret: { 
     type: DataTypes.STRING,
     unique: true
   }

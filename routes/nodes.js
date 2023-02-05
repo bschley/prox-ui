@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { promox } from "../server.js";
+import { promox } from "../proxmox.js";
 
 router.get("/", async (req, res) => {
   const nodes = await promox.nodes.$get();
@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
           lxcArr.push({hostname: config.hostname, memory: config.memory})
       }
   }
+
   res.render('nodes', { title: 'Nodes', nodes, qemuArr, lxcArr });
 });
 

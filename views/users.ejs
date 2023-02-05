@@ -34,12 +34,14 @@
     <script>
         async function popup(id) {
             var apiToken = prompt("Please add an Api Token");
-            if (apiToken != null) {
+            var tokenSecret = prompt("Please add an Api Token secret");
+            if (apiToken != null && tokenSecret != null) {
                 await fetch('/users/update', {
                     method: 'POST',
                     body: JSON.stringify({
                         id,
-                        apiToken
+                        apiToken,
+                        tokenSecret
                     }),
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8',
