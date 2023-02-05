@@ -5,6 +5,7 @@ import expressLayouts from "express-ejs-layouts";
 import indexRoutes from "./routes/index.js";
 import loginRoutes from "./routes/login.js";
 import usersRoutes from "./routes/users.js";
+import registerRoutes from "./routes/register.js";
 import sequelize from "./sequelize.js";
 
 sequelize.sync().then(() => {
@@ -27,4 +28,5 @@ app.set("view engine", "ejs");
 
 app.use("/", indexRoutes);
 app.use("/login", loginRoutes);
-app.use("/users", usersRoutes)
+app.use("/users", usersRoutes);
+app.use("/register", registerRoutes);
