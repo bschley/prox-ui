@@ -60,3 +60,13 @@ th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+nav.li {
+  display: flex;
+}
