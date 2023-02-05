@@ -2,8 +2,9 @@ import express from "express";
 const router = express.Router();
 import user from "../models/user.js";
 
-router.get("/", (req, res) => {
-  res.render('users', { title: 'Users' });
+router.get("/", async (req, res) => {
+  const users = await user.findAll();
+  res.render('users', { title: 'Users', users});
 });
 
 router.post("/create", (req, res) => {

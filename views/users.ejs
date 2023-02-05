@@ -1,2 +1,15 @@
 <%- include('partials/header') %>
-<p>Users Page</p>
+<h1>Users Page</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+    </tr>
+    <% for(var i=0; i<users.length; i++) { %>
+    <tr>
+        <td><%= users[i].id %></td>
+        <td><%= users[i].userName %></td>
+    </tr>
+    <% } %>
+</table>
