@@ -19,8 +19,7 @@ router.get("/", async (req, res) => {
       const lxcs = await theNode.lxc.$get();
       for (const lxc of lxcs) {
           const config = await theNode.lxc.$(lxc.vmid).config.$get();
-          console.log(`vm: ${config.name}, memory: ${config.memory}`);
-          lxcArr.push({name: config.name, memory: config.memory})
+          lxcArr.push({hostname: config.hostname, memory: config.memory})
       }
   }
   res.render('nodes', { title: 'Nodes', nodes, qemuArr, lxcArr });
