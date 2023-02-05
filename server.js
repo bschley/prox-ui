@@ -8,6 +8,7 @@ import indexRoutes from "./routes/index.js";
 import loginRoutes from "./routes/login.js";
 import usersRoutes from "./routes/users.js";
 import registerRoutes from "./routes/register.js";
+import nodesRoutes from "./routes/nodes.js";
 import sequelize from "./sequelize.js";
 import jwtAuth from "./auth.js";
 
@@ -43,3 +44,4 @@ app.use("/", indexRoutes);
 app.use("/login", loginRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
+app.use('/nodes', jwtAuth, nodesRoutes);
