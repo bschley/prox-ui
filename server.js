@@ -1,8 +1,16 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import loginRouter from "./router/login.js";
-import homeRouter from "./router/home.js";
+import indexRoutes from "./routes/index.js";
+import loginRoutes from "./routes/login.js";
+import usersRoutes from "./routes/users.js";
+import sequelize from "./sequelize.js";
+
+sequelize.sync().then(() => {
+  console.log("db works");
+}).catch(err => {
+  console.log("Unable to connect to the database:", err);
+});
 
 const app = express();
 const port = 3000;
@@ -14,5 +22,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", "ejs");
 
-app.use("/", homeRouter);
-app.use("/login", loginRouter);
+app.use("/", indexRoutes);
+app.use("/login", loginRoutes);
+app.use("/users", usersRoutes)
