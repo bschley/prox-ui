@@ -3,7 +3,7 @@ const router = express.Router();
 import user from "../models/user.js";
 
 router.get("/", (req, res) => {
-  res.render('index');
+  res.render('users', { title: 'Users' });
 });
 
 router.post("/create", (req, res) => {

@@ -1,6 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
+import expressLayouts from "express-ejs-layouts";
 import indexRoutes from "./routes/index.js";
 import loginRoutes from "./routes/login.js";
 import usersRoutes from "./routes/users.js";
@@ -19,7 +20,9 @@ app.listen(port);
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(expressLayouts);
 
+app.set('layout', './layouts/main');
 app.set("view engine", "ejs");
 
 app.use("/", indexRoutes);
