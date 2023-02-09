@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 export const jwtAuth = (req, res, next) => {
   const authToken = req.cookies.AuthToken;
-  const role = req.cookies.role;
   try {
     const user = jwt.verify(authToken, process.env.JWT_SECRET);
     req.user = user;
@@ -15,7 +14,7 @@ export const jwtAuth = (req, res, next) => {
 
 export const jwtAuthAdmin = (req, res, next) => {
   const authToken = req.cookies.AuthToken;
-  const role = req.cookies.role;
+  const role = res.locals.role;
   try {
     const user = jwt.verify(authToken, process.env.JWT_SECRET);
     req.user = user;

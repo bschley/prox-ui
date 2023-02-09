@@ -1,16 +1,11 @@
 <nav>
   <li><a href="/">Home</a></li>
-  <% if (isLoggedIn) { %>
-    <% if (role === 'Administrator') { %>
-      <li><a href="/users">Users</a></li>
-    <% } %>
+  <li><a href="/users">Users</a></li>
   <li><a href="/nodes">Nodes</a></li>
   <li>
     <form action="login/logout" method="post">
       <input type="submit" name="Logout" value="Logout" />
     </form>
   </li>
-  <% } else { %>
   <li><a href="/login">Login</a></li>
-  <% } %>
 </nav>

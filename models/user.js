@@ -22,6 +22,14 @@ const user = sequelize.define('user', {
   tokenSecret: { 
     type: DataTypes.STRING,
     unique: true
+  },
+  ugid: {
+    type: DataTypes.STRING,
+    defaultValue: 'NA',
+  },
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'NA',
   }
 }, {
   timestamps: true
