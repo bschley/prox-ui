@@ -16,12 +16,6 @@ router.post("/create", async (req, res) => {
   const id = uuid4();
   let roleBuffer = role;
 
-  const checkTable = await user.findAll();
-
-  if (checkTable.length === 0) {
-    roleBuffer = "Administrator";
-  }
-
   user
     .create({ id, userName, password: hashedPassword, role: roleBuffer })
     .then(() => {

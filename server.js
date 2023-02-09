@@ -30,15 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(expressLayouts);
-
-app.use(async function (req, res, next) {
-  res.locals.isLoggedIn = req.cookies.AuthToken ? true : false;
-  res.locals.role = await user
-    .findOne({ where: { ugid: "test@pam" } })
-    .then((user) => user.role);
-  next();
-});
-
 app.set("layout", "./layouts/main");
 app.set("view engine", "ejs");
 
@@ -46,7 +37,7 @@ app.use(
   session({
     store: new Store({
       dir: "./db",
-      db: "main.db",
+      db: "sessions.db",
       table: "sessions",
       concurrentDB: true,
     }),

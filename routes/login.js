@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 
 router.post("/", async (req, res) => {
   const access = await promox.access.acl.$get();
-  const { ugid, roleId } = access[0];
+  const { ugid, roleid } = access[0];
 
   const { userName, password } = req.body;
   const hashedPassword = getHashedPassword(password);
@@ -22,9 +22,10 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
     },
   });
-
+  console.log(roleid);
+  
   if (userExists) {
-    await user.update({ role: roleId, ugid }, { where: { userName } });
+    await user.update({ role: roleid, ugid }, { where: { userName } });
 
     const authToken = jwt.sign(userExists.toJSON(), process.env.JWT_SECRET, {
       expiresIn: "1h",
@@ -32,8 +33,8 @@ router.post("/", async (req, res) => {
 
     res.cookie("AuthToken", authToken);
     req.session.AuthToken = authToken;
+    req.session.loggedIn = true;
     res.redirect("/nodes");
-    return;
   } else {
     res.render("login", {
       title: "Login",
@@ -46,6 +47,7 @@ router.post("/", async (req, res) => {
 router.post("/logout", (req, res) => {
   res.clearCookie("AuthToken");
   req.session.AuthToken = null;
+  req.session.loggedIn = false;
   res.redirect("/login");
 });
 
