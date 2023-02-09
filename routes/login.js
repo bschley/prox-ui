@@ -5,16 +5,13 @@ import { getHashedPassword } from "../utils.js";
 import jwt from "jsonwebtoken";
 import { promox } from "../proxmox.js";
 
-
-
-
 router.get("/", (req, res) => {
   res.render("login", { title: "Login" });
 });
 
 router.post("/", async (req, res) => {
   const access = await promox.access.acl.$get();
-  const {ugid, roleId} = access[0];
+  const { ugid, roleId } = access[0];
 
   const { userName, password } = req.body;
   const hashedPassword = getHashedPassword(password);
@@ -25,7 +22,6 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
     },
   });
-
 
   if (userExists) {
     await user.update({ role: roleId, ugid }, { where: { userName } });
@@ -48,9 +44,9 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-    res.clearCookie("AuthToken");
-    req.session.AuthToken = null;
-    res.redirect("/login");
+  res.clearCookie("AuthToken");
+  req.session.AuthToken = null;
+  res.redirect("/login");
 });
 
 export default router;

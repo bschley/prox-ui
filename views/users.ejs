@@ -14,21 +14,21 @@
                     <center>No users found</center>
                 </td>
             </tr>
-        <% } %>
-        <% for(var i=0; i<users.length; i++) { %>
-            <tr>
-                <td>
-                    <%= users[i].id %>
-                </td>
-                <td>
-                    <%= users[i].userName %>
-                </td>
-                <td>
-                    <%= users[i].apiToken %>
-                </td>
-                <td width="100"><button onclick="popup('<%= users[i].id %>')">Add Token</button></td>
-            </tr>
-        <% } %>
+            <% } %>
+                <% for(var i=0; i<users.length; i++) { %>
+                    <tr>
+                        <td>
+                            <%= users[i].id %>
+                        </td>
+                        <td>
+                            <%= users[i].userName %>
+                        </td>
+                        <td>
+                            <%= users[i].apiToken %>
+                        </td>
+                        <td width="100"><button onclick="popup('<%= users[i].id %>')">Add Token</button></td>
+                    </tr>
+                    <% } %>
     </table>
 
     <script>
