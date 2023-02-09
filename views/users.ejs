@@ -1,52 +1,52 @@
 <%- include('partials/header') %>
-    <h1>Users Page</h1>
+<h1>Users Page</h1>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>ApiToken</th>
-            <th>Actions</th>
-        </tr>
-        <% if (users.length==0) { %>
-            <tr>
-                <td colspan="4">
-                    <center>No users found</center>
-                </td>
-            </tr>
-            <% } %>
-                <% for(var i=0; i<users.length; i++) { %>
-                    <tr>
-                        <td>
-                            <%= users[i].id %>
-                        </td>
-                        <td>
-                            <%= users[i].userName %>
-                        </td>
-                        <td>
-                            <%= users[i].apiToken %>
-                        </td>
-                        <td width="100"><button onclick="popup('<%= users[i].id %>')">Add Token</button></td>
-                    </tr>
-                    <% } %>
-    </table>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>ApiToken</th>
+    <th>Actions</th>
+  </tr>
+  <% if (users.length==0) { %>
+  <tr>
+    <td colspan="4">
+      <center>No users found</center>
+    </td>
+  </tr>
+  <% } %>
+  <% for(var i=0; i<users.length; i++) { %>
+  <tr>
+    <td>
+      <%= users[i].id %>
+    </td>
+    <td>
+      <%= users[i].userName %>
+    </td>
+    <td>
+      <%= users[i].apiToken %>
+    </td>
+    <td width="100"><button onclick="popup('<%= users[i].id %>')">Add Token</button></td>
+  </tr>
+  <% } %>
+</table>
 
-    <script>
-        async function popup(id) {
-            var apiToken = prompt("Please add an Api Token");
-            var tokenSecret = prompt("Please add an Api Token secret");
-            if (apiToken != null && tokenSecret != null) {
-                await fetch('/users/update', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        id,
-                        apiToken,
-                        tokenSecret
-                    }),
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    },
-                }).then(() => window.location = '/users');
-            }
-        }
-    </script>
+<script>
+  async function popup(id) {
+    var apiToken = prompt("Please add an Api Token");
+    var tokenSecret = prompt("Please add an Api Token secret");
+    if (apiToken != null && tokenSecret != null) {
+      await fetch('/users/update', {
+        method: 'POST',
+        body: JSON.stringify({
+          id,
+          apiToken,
+          tokenSecret
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }).then(() => window.location = '/users');
+    }
+  }
+</script>
