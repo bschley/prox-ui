@@ -22,7 +22,6 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
     },
   });
-  console.log(roleid);
   
   if (userExists) {
     await user.update({ role: roleid, ugid }, { where: { userName } });
