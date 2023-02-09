@@ -9,8 +9,8 @@ export const jwtAuth = (req, res, next) => {
   } catch (err) {
     res.clearCookie("AuthToken");
     return res.redirect("/");
-  } 
-}
+  }
+};
 
 export const jwtAuthAdmin = (req, res, next) => {
   const authToken = req.cookies.AuthToken;
@@ -18,7 +18,7 @@ export const jwtAuthAdmin = (req, res, next) => {
   try {
     const user = jwt.verify(authToken, process.env.JWT_SECRET);
     req.user = user;
-    if (role == 'Administrator') {
+    if (role == "Administrator") {
       next();
     } else {
       return res.redirect("/");
@@ -26,5 +26,5 @@ export const jwtAuthAdmin = (req, res, next) => {
   } catch (err) {
     res.clearCookie("AuthToken");
     return res.redirect("/");
-  } 
-}
+  }
+};
