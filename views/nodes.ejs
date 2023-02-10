@@ -1,83 +1,104 @@
 <%- include('partials/header') %>
-<h1>Nodes</h1>
+  <h1>Nodes</h1>
 
-<p>Node:</p>
-<table>
-  <tr>
-    <th>Id</th>
-    <th>Node</th>
-  </tr>
-  <% if (nodes.length==0) { %>
-  <tr>
-    <td colspan="2">
-      <center>No nodes found</center>
-    </td>
-  </tr>
-  <% } %>
-  <% for(var i=0; i<nodes.length; i++) { %>
-  <tr>
-    <td>
-      <%= nodes[i].id %>
-    </td>
-    <td>
-      <%= nodes[i].node %>
-    </td>
-  </tr>
-  <% } %>
-</table>
+  <p>Node:</p>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Node</th>
+    </tr>
+    <% if (nodes.length==0) { %>
+      <tr>
+        <td colspan="2">
+          <center>No nodes found</center>
+        </td>
+      </tr>
+      <% } %>
+        <% for(var i=0; i<nodes.length; i++) { %>
+          <tr>
+            <td>
+              <%= nodes[i].id %>
+            </td>
+            <td>
+              <%= nodes[i].node %>
+            </td>
+          </tr>
+          <% } %>
+  </table>
 
-<br>
-<br>
+  <br>
+  <br>
 
-<p>Virtual Machines:</p>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Memory</th>
-  </tr>
-  <% if (qemuArr.length==0) { %>
-  <tr>
-    <td colspan="2">
-      <center>No virtual machines found</center>
-    </td>
-  </tr>
-  <% } %>
-  <% for(var i=0; i<qemuArr.length; i++) { %>
-  <tr>
-    <td>
-      <%= qemuArr[i].name %>
-    </td>
-    <td>
-      <%= qemuArr[i].memory %>
-    </td>
-  </tr>
-  <% } %>
-</table>
+  <p>Virtual Machines:</p>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    <% if (qemuArr.length==0) { %>
+      <tr>
+        <td colspan="2">
+          <center>No virtual machines found</center>
+        </td>
+      </tr>
+      <% } %>
+        <% for(var i=0; i<qemuArr.length; i++) { %>
+          <tr>
+            <td>
+              <%= qemuArr[i].vmid %>
+            </td>
+            <td>
+              <%= qemuArr[i].name %>
+            </td>
+            <td>
+              <%= qemuArr[i].status %>
+            </td>
+            <td>
+              <button type="submit" name="restart" value="<%= qemuArr[i].name %>">Restart</button>
+              <button type="submit" name="start" value="<%= qemuArr[i].name %>">Start</button>
+              <button type="submit" name="stop" value="<%= qemuArr[i].name %>">Stop</button>
+            </td>
+          </tr>
+          <% } %>
+  </table>
 
-<br>
-<br>
+  <br>
+  <br>
 
-<p>LXC containers:</p>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Memory</th>
-  </tr>
-  <% if (lxcArr.length==0) { %>
-  <tr>
-    <td colspan="2">
-      <center>No LXC containers found</center>
-    </td>
-  </tr>
-  <% } %>
-  <% for(var i=0; i<lxcArr.length; i++) { %>
-  <tr>
-    <td>
-      <%= lxcArr[i].hostname %>
-    </td>
-    <td>
-      <%= lxcArr[i].memory %>
-    </td>
-  </tr>
-  <% } %>
-</table>
+  <p>LXC containers:</p>
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    <% if (lxcArr.length==0) { %>
+      <tr>
+        <td colspan="2">
+          <center>No LXC containers found</center>
+        </td>
+      </tr>
+      <% } %>
+        <% for(var i=0; i<lxcArr.length; i++) { %>
+
+          <tr>
+            <td>
+              <%= lxcArr[i].vmid %>
+            </td>
+            <td>
+              <%= lxcArr[i].name %>
+            </td>
+            <td>
+              <%= lxcArr[i].status %>
+            </td>
+            <td>
+              <button type="submit" name="restart" value="<%= qemuArr[i].name %>">Restart</button>
+              <button type="submit" name="start" value="<%= lxcArr[i].hostname %>">Start</button>
+              <button type="submit" name="stop" value="<%= lxcArr[i].hostname %>">Stop</button>
+            </td>
+          </tr>
+          <% } %>
+  </table>

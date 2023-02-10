@@ -10,10 +10,10 @@ import registerRoutes from "./routes/register.js";
 import nodesRoutes from "./routes/nodes.js";
 import sequelize from "./sequelize.js";
 import { jwtAuth } from "./auth.js";
-import user from "./models/user.js";
 import session from "express-session";
 import SQLiteStore from "connect-sqlite3";
 const Store = new SQLiteStore(session);
+import cors from "cors";
 
 sequelize
   .sync({ force: false })
@@ -26,6 +26,7 @@ const app = express();
 const port = 3000;
 app.listen(port);
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
