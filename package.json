@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.0",
     "proxmox-api": "^1.0.0",
     "sequelize": "^6.28.0",
+    "sequelize-fixtures": "^1.2.0",
     "sqlite3": "^5.1.4",
     "uuid4": "^2.0.3"
   },
