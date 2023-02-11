@@ -1,32 +1,28 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 const router = express.Router();
 import user from "../models/user.js";
 import { getHashedPassword } from "../utils.js";
 import jwt from "jsonwebtoken";
-import { promox } from "../proxmox.js";
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   res.render("login", { title: "Login" });
 });
 
 router.post("/", async (req, res) => {
-  const access = await promox.access.acl.$get();
-  const { ugid, roleid } = access[0];
-
   const { userName, password } = req.body;
   const hashedPassword = getHashedPassword(password);
 
-  const userExists = await user.findOne({
+  const userToLogin = await user.findOne({
     where: {
       userName,
       password: hashedPassword,
     },
   });
   
-  if (userExists) {
-    await user.update({ role: roleid, ugid }, { where: { userName } });
-
-    const authToken = jwt.sign(userExists.toJSON(), process.env.JWT_SECRET, {
+  if (userToLogin) {
+    const authToken = jwt.sign(userToLogin.toJSON(), process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 

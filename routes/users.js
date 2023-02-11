@@ -18,7 +18,7 @@ router.post("/create", async (req, res) => {
   user
     .create({ id, userName, password: hashedPassword })
     .then(() => {
-      res.redirect("/login");
+      res.status(201).send("User created");
     })
     .catch((err) => {
       res.status(409).send(err);
@@ -30,6 +30,7 @@ router.post("/update", async (req, res) => {
   await user
     .update({ apiToken, tokenSecret }, { where: { id } })
     .then(() => {
+      res.status(204).send("User updated");
       res.redirect("/users");
     })
     .catch((err) => {

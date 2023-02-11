@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   if (req.session.AuthToken) {
     res.cookie("AuthToken", req.session.AuthToken);
   }
