@@ -1,34 +1,23 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import cookieParser from "cookie-parser";
 import expressLayouts from "express-ejs-layouts";
+import sequelize_fixtures from "sequelize-fixtures";
+import registerRoutes from "./routes/register.js";
 import indexRoutes from "./routes/index.js";
 import loginRoutes from "./routes/login.js";
 import usersRoutes from "./routes/users.js";
-import registerRoutes from "./routes/register.js";
 import nodesRoutes from "./routes/nodes.js";
-import sequelize from "./sequelize.js";
-import { jwtAuth } from "./auth.js";
-import session from "express-session";
+import cookieParser from "cookie-parser";
 import SQLiteStore from "connect-sqlite3";
+import sequelize from "./sequelize.js";
 const Store = new SQLiteStore(session);
+import session from "express-session";
+import { jwtAuth } from "./auth.js";
 import cors from "cors";
-import sequelize_fixtures from "sequelize-fixtures";
 
-if (process.env.INSTALL === "true") {
-  sequelize_fixtures
-    .loadFile("./INSTALL/fixtures.json", sequelize.models)
-    .then(() => {
-      console.log("Fixtures loaded");
-    })
-    .then(() => {
-      fs.rmSync('./INSTALL', { recursive: true, force: true });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+
+
 
 // TODO: server.js clean up :)
 
@@ -77,3 +66,21 @@ app.use(express.static("public"));
 app.get("*", (req, res) => {
   res.status(404).send("Page not found: 404");
 });
+
+if (process.env.INSTALL === "true") {
+  await sequelize.sync({ force: true });
+
+  sequelize_fixtures
+    .loadFile("./INSTALL/fixtures.json", sequelize.models)
+    .then(() => {
+      console.log("Fixtures loaded");
+    })
+    .then(() => {
+      if (process.env.NODE_ENV === "production") {
+        fs.rmSync('./INSTALL', { recursive: true, force: true });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}

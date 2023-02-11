@@ -10,7 +10,7 @@ router.get("/", jwtAuth, async (req, res) => {
   res.render("users", { title: "Users", users });
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", jwtAuthAdmin, async (req, res) => {
   const { userName, password } = req.body;
   const hashedPassword = getHashedPassword(password);
   const id = uuid4();
