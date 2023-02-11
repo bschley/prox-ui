@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const router = express.Router();
-import proxmox from "../proxmox.js";
+import proxmox from "../../proxmox.js";
 
 router.get("/", async (req, res) => {
   const nodes = await proxmox.nodes.$get();

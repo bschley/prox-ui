@@ -1,5 +1,5 @@
 import express from "express";
-import { jwtAuth } from "../auth.js";
+import { jwtAuth } from "../../auth.js";
 const router = express.Router();
 
 router.get("/", jwtAuth, async (req, res) => {

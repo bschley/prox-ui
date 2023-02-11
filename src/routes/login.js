@@ -3,7 +3,7 @@ dotenv.config();
 import express from "express";
 const router = express.Router();
 import user from "../models/user.model.js";
-import { getHashedPassword } from "../utils.js";
+import { getHashedPassword } from "../../utils.js";
 import jwt from "jsonwebtoken";
 
 router.get("/", async (req, res) => {
