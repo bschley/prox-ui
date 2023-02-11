@@ -1,5 +1,5 @@
 import express from "express";
-import { jwtAuth } from "../auth.js";
+import { jwtAuth, jwtAuthAdmin } from "../auth.js";
 const router = express.Router();
 import user from "../models/user.js";
 import { getHashedPassword } from "../utils.js";
@@ -21,7 +21,7 @@ router.post("/create", async (req, res) => {
       res.status(201).send("User created");
     })
     .catch((err) => {
-      res.status(409).send(err);
+      res.status(409).send("User already exists");
     });
 });
 
