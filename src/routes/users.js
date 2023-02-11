@@ -27,11 +27,11 @@ router.post("/create", jwtAuthAdmin, async (req, res) => {
 
 router.post("/update", async (req, res) => {
   const { id, apiToken, tokenSecret } = req.body;
+  const hashedTokenSecret = getHashedPassword(tokenSecret);
   await user
-    .update({ apiToken, tokenSecret }, { where: { id } })
+    .update({ apiToken, tokenSecret: hashedTokenSecret }, { where: { id } })
     .then(() => {
       res.status(204).send("User updated");
-      res.redirect("/users");
     })
     .catch((err) => {
       res.status(409).send("User may exists");

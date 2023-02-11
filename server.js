@@ -37,6 +37,7 @@ app.use(expressLayouts);
 app.set("views", "./client/views");
 app.set("layout", "./layouts/main");
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 
 app.use(
@@ -60,7 +61,6 @@ app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
 app.use("/nodes", jwtAuth, nodesRoutes);
 
-app.use(express.static("public"));
 
 app.get("*", (req, res) => {
   res.status(404).send("Page not found: 404");
