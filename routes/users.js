@@ -1,7 +1,7 @@
 import express from "express";
 import { jwtAuth, jwtAuthAdmin } from "../auth.js";
 const router = express.Router();
-import user from "../models/user.js";
+import user from "../models/user.model.js";
 import { getHashedPassword } from "../utils.js";
 import uuid4 from "uuid4";
 

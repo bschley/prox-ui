@@ -14,6 +14,23 @@ import session from "express-session";
 import SQLiteStore from "connect-sqlite3";
 const Store = new SQLiteStore(session);
 import cors from "cors";
+import sequelize_fixtures from "sequelize-fixtures";
+
+if (process.env.INSTALL === "true") {
+  sequelize_fixtures
+    .loadFile("./INSTALL/fixtures.json", sequelize.models)
+    .then(() => {
+      console.log("Fixtures loaded");
+    })
+    .then(() => {
+      fs.rmSync('./INSTALL', { recursive: true, force: true });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+// TODO: server.js clean up :)
 
 sequelize
   .sync({ force: false })

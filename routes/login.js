@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const router = express.Router();
-import user from "../models/user.js";
+import user from "../models/user.model.js";
 import { getHashedPassword } from "../utils.js";
 import jwt from "jsonwebtoken";
 
