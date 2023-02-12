@@ -68,7 +68,7 @@ if (process.env.INSTALL === "true") {
     })
     .then(() => {
       if (process.env.NODE_ENV === "production") {
-        fs.rmSync('./INSTALL', { recursive: true, force: true });
+        fs.rmSync("./INSTALL", { recursive: true, force: true });
       }
     })
     .catch((err) => {
