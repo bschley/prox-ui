@@ -18,7 +18,6 @@ router.post("/create", jwtAuthAdmin, async (req, res) => {
   user
     .create({ id, username, password: hashedPassword })
     .then(() => {
-      res.status(201).send("User created");
       res.redirect("/users");
     })
     .catch((err) => {
@@ -33,6 +32,21 @@ router.post("/update", jwtAuthAdmin, async (req, res) => {
     .update({ api_token: apiToken, api_secret: tokenSecret }, { where: { id } })
     .then(() => {
       res.status(204).send("User updated");
+    })
+    .catch((err) => {
+      res.status(409).send("User may exists");
+    });
+});
+
+router.delete("/delete", jwtAuthAdmin, async (req, res) => {
+  const { id } = req.body;
+
+  console.log(id)
+
+  await user
+    .destroy({ where: { id } })
+    .then(() => {
+      res.status(204).send("User deleted");
     })
     .catch((err) => {
       res.status(409).send("User may exists");

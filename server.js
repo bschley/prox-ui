@@ -1,6 +1,5 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-import express from "express";
 import expressLayouts from "express-ejs-layouts";
 import sequelize_fixtures from "sequelize-fixtures";
 import registerRoutes from "./src/routes/register.js";
@@ -9,12 +8,10 @@ import loginRoutes from "./src/routes/login.js";
 import usersRoutes from "./src/routes/users.js";
 import nodesRoutes from "./src/routes/nodes.js";
 import cookieParser from "cookie-parser";
-import SQLiteStore from "connect-sqlite3";
 import sequelize from "./sequelize.js";
-const Store = new SQLiteStore(session);
-import session from "express-session";
-import cors from "cors";
 import jwt from "jsonwebtoken";
+import express from "express";
+import cors from "cors";
 
 // TODO: server.js clean up :)
 

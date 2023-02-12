@@ -3,13 +3,10 @@ dotenv.config();
 import express from "express";
 import { jwtAuth } from "../../auth.js";
 const router = express.Router();
-import { proxmox as proxi } from "../../proxmox.js";
-import user from "../models/user.model.js";
+import { proxmox } from "../../proxmox.js";
 
-router.get("/", jwtAuth, async (req, res) => {
-const foundUser = await user.findOne({ where: { username: req.user.username  } });
-const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_secret);
-
+router.get("/", jwtAuth, proxmox, async (req, res) => {
+  const proxmox = req.proxmox;
   const nodes = await proxmox.nodes.$get();
   const qemuArr = [];
   for (const node of nodes) {
@@ -40,10 +37,9 @@ const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_s
   });
 });
 
-router.post("/qemu/:status", jwtAuth, async (req, res) => {
-  const foundUser = await user.findOne({ where: { username: req.user.username  } });
-  const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_secret);
-  
+router.post("/qemu/:status", jwtAuth, proxmox, async (req, res) => {  
+  const proxmox = req.proxmox;
+
   const status = req.params.status;
 
   const { vmid } = req.body;
@@ -82,10 +78,8 @@ router.post("/qemu/:status", jwtAuth, async (req, res) => {
   res.redirect("/nodes");
 });
 
-router.post("/lxc/:status", jwtAuth, async (req, res) => {
-  
-  const foundUser = await user.findOne({ where: { username: req.user.username  } });
-  const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_secret);
+router.post("/lxc/:status", jwtAuth, proxmox, async (req, res) => {
+  const proxmox = req.proxmox;
 
   const status = req.params.status;
 

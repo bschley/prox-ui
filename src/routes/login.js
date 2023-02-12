@@ -20,11 +20,11 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
     },
   });
-
-  userToLogin.dataValues.password = null;
-  userToLogin.dataValues.loggedIn = true;
   
   if (userToLogin) {
+    userToLogin.dataValues.password = null;
+    userToLogin.dataValues.loggedIn = true;
+    
     const authToken = jwt.sign(userToLogin.dataValues, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -32,11 +32,7 @@ router.post("/", async (req, res) => {
     res.cookie("AuthToken", authToken);
     res.redirect("/");
   } else {
-    res.render("login", {
-      title: "Login",
-      message: "Invalid username or password",
-      messageClass: "alert-danger",
-    });
+    res.redirect('/login')
   }
 });
 

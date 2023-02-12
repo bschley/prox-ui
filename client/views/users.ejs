@@ -27,11 +27,25 @@
       <%= users[i].api_token %>
     </td>
     <td width="100"><button onclick="popup('<%= users[i].id %>')">Add Token</button></td>
+    <td width="100"><button onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
   </tr>
   <% } %>
 </table>
 
 <script>
+  function deleteUser(id) {
+    if (confirm('Are you sure you want to delete this user?') == false)
+      return;
+    fetch('/users/delete', {
+      method: 'DELETE',
+      body: JSON.stringify({
+        id
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    }).then(() => window.location = '/users');
+  }
   async function popup(id) {
     var apiToken = prompt("Please add an Api Token");
     var tokenSecret = prompt("Please add an Api Token secret");
