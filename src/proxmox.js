@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import { proxmoxApi } from "proxmox-api";
-import user from "./src/models/user.model.js";
+import user from "./models/user.model.js";
 
 export const proxmox = async (req, res, next) => {
   try {

@@ -1,89 +1,83 @@
 <%- include('partials/header') %>
-  <h1>Nodes</h1>
+<h1>Nodes</h1>
 
-  <p>Virtual Machines:</p>
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    <% if (qemuArr.length==0) { %>
-      <tr>
-        <td colspan="2">
-          <center>No virtual machines found</center>
-        </td>
-      </tr>
-      <% } %>
-        <% for(var i=0; i<qemuArr.length; i++) { %>
-          <tr>
-            <td>
-              <%= qemuArr[i].vmid %>
-            </td>
-            <td>
-              <%= qemuArr[i].name %>
-            </td>
-            <td>
-              <%= qemuArr[i].status %>
-            </td>
-            <td>
-              <button style="background-color: green" type="submit" name="start"
-                onclick="changeServerStatus('start', 'qemu', <%= qemuArr[i].vmid %>)">Start</button>
-              <button style="background-color: yellowgreen" type="submit" name="restart"
-                onclick="changeServerStatus('shutdown', 'qemu', <%= qemuArr[i].vmid %>)">Shutdown</button>
-              <button style="background-color: orangered" type="submit" name="stop"
-                onclick="changeServerStatus('stop', 'qemu', <%= qemuArr[i].vmid %>)">Stop</button>
-            </td>
-          </tr>
-          <% } %>
-  </table>
+<p>Virtual Machines:</p>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  <% if (qemuArr.length==0) { %>
+  <tr>
+    <td colspan="2">
+      <center>No virtual machines found</center>
+    </td>
+  </tr>
+  <% } %>
+  <% for(var i=0; i<qemuArr.length; i++) { %>
+  <tr>
+    <td>
+      <%= qemuArr[i].vmid %>
+    </td>
+    <td>
+      <%= qemuArr[i].name %>
+    </td>
+    <td>
+      <%= qemuArr[i].status %>
+    </td>
+    <td>
+      <button style="background-color: green" type="submit" name="start" onclick="changeServerStatus('start', 'qemu', <%= qemuArr[i].vmid %>)">Start</button>
+      <button style="background-color: yellowgreen" type="submit" name="restart" onclick="changeServerStatus('shutdown', 'qemu', <%= qemuArr[i].vmid %>)">Shutdown</button>
+      <button style="background-color: orangered" type="submit" name="stop" onclick="changeServerStatus('stop', 'qemu', <%= qemuArr[i].vmid %>)">Stop</button>
+    </td>
+  </tr>
+  <% } %>
+</table>
 
-  <br>
-  <br>
+<br>
+<br>
 
-  <p>LXC containers:</p>
-  <table>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
-    <% if (lxcArr.length==0) { %>
-      <tr>
-        <td colspan="2">
-          <center>No LXC containers found</center>
-        </td>
-      </tr>
-      <% } %>
-        <% for(var i=0; i<lxcArr.length; i++) { %>
+<p>LXC containers:</p>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  <% if (lxcArr.length==0) { %>
+  <tr>
+    <td colspan="2">
+      <center>No LXC containers found</center>
+    </td>
+  </tr>
+  <% } %>
+  <% for(var i=0; i<lxcArr.length; i++) { %>
 
-          <tr>
-            <td>
-              <%= lxcArr[i].vmid %>
-            </td>
-            <td>
-              <%= lxcArr[i].name %>
-            </td>
-            <td>
-              <%= lxcArr[i].status %>
-            </td>
-            <td>
-              <button style="background-color: green" type="submit" name="start"
-                onclick="changeServerStatus('start', 'lxc', <%= lxcArr[i].vmid %>)">Start</button>
-              <button style="background-color: yellowgreen" type="submit" name="restart"
-                onclick="changeServerStatus('shutdown', 'lxc', <%= lxcArr[i].vmid %>)">Shutdown</button>
-              <button style="background-color: orangered" type="submit" name="stop"
-                onclick="changeServerStatus('stop', 'lxc', <%= lxcArr[i].vmid %>)">Stop</button>
-            </td>
-          </tr>
-          <% } %>
-  </table>
+  <tr>
+    <td>
+      <%= lxcArr[i].vmid %>
+    </td>
+    <td>
+      <%= lxcArr[i].name %>
+    </td>
+    <td>
+      <%= lxcArr[i].status %>
+    </td>
+    <td>
+      <button style="background-color: green" type="submit" name="start" onclick="changeServerStatus('start', 'lxc', <%= lxcArr[i].vmid %>)">Start</button>
+      <button style="background-color: yellowgreen" type="submit" name="restart" onclick="changeServerStatus('shutdown', 'lxc', <%= lxcArr[i].vmid %>)">Shutdown</button>
+      <button style="background-color: orangered" type="submit" name="stop" onclick="changeServerStatus('stop', 'lxc', <%= lxcArr[i].vmid %>)">Stop</button>
+    </td>
+  </tr>
+  <% } %>
+</table>
 
-  <script>
-    async function changeServerStatus(status, type, vmid) {
-      await fetch(`/nodes/${type}/${status}`, {
+<script>
+  async function changeServerStatus(status, type, vmid) {
+    await fetch(`/nodes/${type}/${status}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -95,11 +89,11 @@
           vmid
         })
       }).then(res => res.json())
-        .then(data => {
-          console.log(data);
-        })
-        .catch(err => {
-          console.log(err);
-        })
-    }
-  </script>
+      .then(data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+</script>

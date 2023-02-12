@@ -1,9 +1,9 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { jwtAuth } from "../../auth.js";
+import { jwtAuth } from "../auth.js";
 const router = express.Router();
-import { proxmox } from "../../proxmox.js";
+import { proxmox } from "../proxmox.js";
 
 router.get("/", jwtAuth, proxmox, async (req, res) => {
   const proxmox = req.proxmox;

@@ -3,7 +3,7 @@ dotenv.config();
 import expressLayouts from "express-ejs-layouts";
 import sequelize_fixtures from "sequelize-fixtures";
 import cookieParser from "cookie-parser";
-import sequelize from "./sequelize.js";
+import sequelize from "./src/sequelize.js";
 import routes from "./src/routes.js";
 import jwt from "jsonwebtoken";
 import express from "express";
