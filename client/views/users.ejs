@@ -26,8 +26,8 @@
     <td>
       <%= users[i].api_token %>
     </td>
-    <td width="100"><button onclick="popup('<%= users[i].id %>')">Add Token</button></td>
-    <td width="100"><button onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
+    <td width="100"><button style="background-color: darkblue" onclick="popup('<%= users[i].id %>')">Add Token</button></td>
+    <td width="100"><button style="background-color: red" onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
   </tr>
   <% } %>
 </table>
