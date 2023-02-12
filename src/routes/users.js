@@ -56,8 +56,6 @@ router.post("/update/password", jwtAuthAdmin, async (req, res) => {
 router.delete("/delete", jwtAuthAdmin, async (req, res) => {
   const { id } = req.body;
 
-  console.log(id)
-
   await user
     .destroy({ where: { id } })
     .then(() => {
