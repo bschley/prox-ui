@@ -25,9 +25,7 @@ router.post("/", async (req, res) => {
     userToLogin.dataValues.password = null;
     userToLogin.dataValues.loggedIn = true;
     
-    const authToken = jwt.sign(userToLogin.dataValues, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const authToken = jwt.sign(userToLogin.dataValues, process.env.JWT_SECRET);
     
     res.cookie("AuthToken", authToken);
     res.redirect("/");

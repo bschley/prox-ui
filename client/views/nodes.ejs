@@ -31,8 +31,6 @@
               <button style="background-color: green" type="submit" name="start"
                 onclick="changeServerStatus('start', 'qemu', <%= qemuArr[i].vmid %>)">Start</button>
               <button style="background-color: yellowgreen" type="submit" name="restart"
-                onclick="changeServerStatus('restart', 'qemu', <%= qemuArr[i].vmid %>)">Restart</button>
-              <button style="background-color: orange" type="submit" name="shutdown"
                 onclick="changeServerStatus('shutdown', 'qemu', <%= qemuArr[i].vmid %>)">Shutdown</button>
               <button style="background-color: orangered" type="submit" name="stop"
                 onclick="changeServerStatus('stop', 'qemu', <%= qemuArr[i].vmid %>)">Stop</button>
@@ -75,8 +73,6 @@
               <button style="background-color: green" type="submit" name="start"
                 onclick="changeServerStatus('start', 'lxc', <%= lxcArr[i].vmid %>)">Start</button>
               <button style="background-color: yellowgreen" type="submit" name="restart"
-                onclick="changeServerStatus('restart', 'lxc', <%= lxcArr[i].vmid %>)">Restart</button>
-              <button style="background-color: orange" type="submit" name="shutdown"
                 onclick="changeServerStatus('shutdown', 'lxc', <%= lxcArr[i].vmid %>)">Shutdown</button>
               <button style="background-color: orangered" type="submit" name="stop"
                 onclick="changeServerStatus('stop', 'lxc', <%= lxcArr[i].vmid %>)">Stop</button>
