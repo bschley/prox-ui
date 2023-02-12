@@ -26,10 +26,9 @@
             <td>
               <%= users[i].api_token %>
             </td>
-            <td width="100"><button style="background-color: darkblue" onclick="popup('<%= users[i].id %>')">Add
-                Token</button></td>
-            <td width="100"><button style="background-color: red"
-                onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
+            <td width="100"><button style="background-color: darkblue" onclick="popup('<%= users[i].id %>')">Add Token</button></td>
+            <td width="100"><button style="background-color: orangered" onclick="changePassword('<%= users[i].id %>')">Change Password</button></td>
+            <td width="100"><button style="background-color: red" onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
           </tr>
           <% } %>
   </table>
@@ -42,6 +41,19 @@
         method: 'DELETE',
         body: JSON.stringify({
           id
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }).then(() => window.location = '/users');
+    }
+    function changePassword(id) {
+      const password = prompt("Please enter your password");
+      fetch('/users/changePassword', {
+        method: 'POST',
+        body: JSON.stringify({
+          id,
+          password
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

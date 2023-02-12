@@ -38,6 +38,21 @@ router.post("/update", jwtAuthAdmin, async (req, res) => {
     });
 });
 
+router.post("/changePassword", jwtAuthAdmin, async (req, res) => {
+  const { id, password } = req.body;
+
+  const changedPassword = getHashedPassword(password);
+
+  await user
+    .update({ password: changedPassword }, { where: { id } })
+    .then(() => {
+      res.status(204).send("User updated");
+    })
+    .catch((err) => {
+      res.status(409).send("User may exists");
+    });
+});
+
 router.delete("/delete", jwtAuthAdmin, async (req, res) => {
   const { id } = req.body;
 
