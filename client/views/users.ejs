@@ -49,6 +49,8 @@
     }
     function updatePassword(id) {
       const password = prompt("Please enter your password");
+      if (password == null)
+        return;
       fetch('/users/update/password', {
         method: 'POST',
         body: JSON.stringify({
