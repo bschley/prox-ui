@@ -19,7 +19,7 @@ import cors from "cors";
 // TODO: server.js clean up :)
 
 sequelize
-  .sync({ force: false })
+  .sync({ force: process.env.RESET_DB === "true" })
   .then(() => {})
   .catch((err) => {
     console.log("Unable to connect to the database:", err);
@@ -39,7 +39,6 @@ app.set("layout", "./layouts/main");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-
 app.use(
   session({
     store: new Store({
@@ -55,12 +54,15 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  next();
+});
+
 app.use("/", indexRoutes);
 app.use("/login", loginRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
 app.use("/nodes", jwtAuth, nodesRoutes);
-
 
 app.get("*", (req, res) => {
   res.status(404).send("Page not found: 404");

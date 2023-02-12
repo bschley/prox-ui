@@ -3,7 +3,7 @@
       "model": "user",
       "data": {
           "id": "5ddf9484-4624-4bcd-842b-4b491b311f28",
-          "userName": "admin",
+          "username": "admin",
           "password": "XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=",
           "role": "Administrator"
       }

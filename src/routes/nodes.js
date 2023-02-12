@@ -2,9 +2,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const router = express.Router();
-import proxmox from "../../proxmox.js";
+import { proxmox as proxi } from "../../proxmox.js";
+import user from "../models/user.model.js";
 
 router.get("/", async (req, res) => {
+const foundUser = await user.findOne({ where: { username: req.user.username  } });
+const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_secret);
+
   const nodes = await proxmox.nodes.$get();
   const qemuArr = [];
   for (const node of nodes) {
@@ -36,6 +40,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/qemu/:status", async (req, res) => {
+  const foundUser = await user.findOne({ where: { username: req.user.username  } });
+  const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_secret);
+  
   const status = req.params.status;
 
   const { vmid } = req.body;
@@ -75,6 +82,10 @@ router.post("/qemu/:status", async (req, res) => {
 });
 
 router.post("/lxc/:status", async (req, res) => {
+  
+  const foundUser = await user.findOne({ where: { username: req.user.username  } });
+  const proxmox = proxi(foundUser.dataValues.api_token, foundUser.dataValues.api_secret);
+
   const status = req.params.status;
 
   const { vmid } = req.body;

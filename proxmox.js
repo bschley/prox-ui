@@ -2,10 +2,10 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import { proxmoxApi } from "proxmox-api";
 
-export const promox = proxmoxApi({
+export const proxmox = (tokenID, tokenSecret) => proxmoxApi({
   host: process.env.PROX_HOST,
-  username: process.env.PROX_USERNAME,
-  password: process.env.PROX_PASSWORD,
+  tokenID,
+  tokenSecret,
 });
 
-export default promox;
+export default proxmox;

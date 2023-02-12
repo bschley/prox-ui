@@ -8,7 +8,7 @@ const user = sequelize.define(
       type: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -17,17 +17,13 @@ const user = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    apiToken: {
+    api_token: {
       type: DataTypes.STRING,
       unique: true,
     },
-    tokenSecret: {
+    api_secret: {
       type: DataTypes.STRING,
       unique: true,
-    },
-    ugid: {
-      type: DataTypes.STRING,
-      defaultValue: "NA",
     },
     role: {
       type: DataTypes.STRING,

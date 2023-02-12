@@ -5,20 +5,21 @@ import user from "../models/user.model.js";
 import { getHashedPassword } from "../../utils.js";
 import uuid4 from "uuid4";
 
-router.get("/", jwtAuth, async (req, res) => {
+router.get("/", jwtAuth, jwtAuthAdmin, async (req, res) => {
   const users = await user.findAll();
   res.render("users", { title: "Users", users });
 });
 
 router.post("/create", jwtAuthAdmin, async (req, res) => {
-  const { userName, password } = req.body;
+  const { username, password } = req.body;
   const hashedPassword = getHashedPassword(password);
   const id = uuid4();
 
   user
-    .create({ id, userName, password: hashedPassword })
+    .create({ id, username, password: hashedPassword })
     .then(() => {
       res.status(201).send("User created");
+      res.redirect("/users");
     })
     .catch((err) => {
       res.status(409).send("User already exists");
@@ -27,9 +28,9 @@ router.post("/create", jwtAuthAdmin, async (req, res) => {
 
 router.post("/update", async (req, res) => {
   const { id, apiToken, tokenSecret } = req.body;
-  const hashedTokenSecret = getHashedPassword(tokenSecret);
+
   await user
-    .update({ apiToken, tokenSecret: hashedTokenSecret }, { where: { id } })
+    .update({ api_token: apiToken, api_secret: tokenSecret }, { where: { id } })
     .then(() => {
       res.status(204).send("User updated");
     })

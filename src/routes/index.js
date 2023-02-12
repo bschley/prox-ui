@@ -1,11 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  if (req.session.AuthToken) {
-    res.cookie("AuthToken", req.session.AuthToken);
-  }
-
+router.get("/", (req, res) => {
   res.render("index", { title: "Home" });
 });
 
