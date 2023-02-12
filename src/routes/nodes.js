@@ -96,7 +96,7 @@ router.post("/lxc/:status", jwtAuth, proxmox, async (req, res) => {
         .catch((err) => console.log(err));
       break;
     case "restart":
-      await theLxc.status.restart
+      await theLxc.status.reboot
         .$post()
         .then((res) => console.log(res))
         .catch((err) => console.log(err));

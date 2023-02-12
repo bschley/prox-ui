@@ -1,66 +1,68 @@
 <%- include('partials/header') %>
-<h1>Users Page</h1>
+  <h1>Users Page</h1>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>ApiToken</th>
-    <th>Actions</th>
-  </tr>
-  <% if (users.length==0) { %>
-  <tr>
-    <td colspan="4">
-      <center>No users found</center>
-    </td>
-  </tr>
-  <% } %>
-  <% for(var i=0; i<users.length; i++) { %>
-  <tr>
-    <td>
-      <%= users[i].id %>
-    </td>
-    <td>
-      <%= users[i].username %>
-    </td>
-    <td>
-      <%= users[i].api_token %>
-    </td>
-    <td width="100"><button style="background-color: darkblue" onclick="popup('<%= users[i].id %>')">Add Token</button></td>
-    <td width="100"><button style="background-color: red" onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
-  </tr>
-  <% } %>
-</table>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>ApiToken</th>
+      <th>Actions</th>
+    </tr>
+    <% if (users.length==0) { %>
+      <tr>
+        <td colspan="4">
+          <center>No users found</center>
+        </td>
+      </tr>
+      <% } %>
+        <% for(var i=0; i<users.length; i++) { %>
+          <tr>
+            <td>
+              <%= users[i].id %>
+            </td>
+            <td>
+              <%= users[i].username %>
+            </td>
+            <td>
+              <%= users[i].api_token %>
+            </td>
+            <td width="100"><button style="background-color: darkblue" onclick="popup('<%= users[i].id %>')">Add
+                Token</button></td>
+            <td width="100"><button style="background-color: red"
+                onclick="deleteUser('<%= users[i].id %>')">DELETE</button></td>
+          </tr>
+          <% } %>
+  </table>
 
-<script>
-  function deleteUser(id) {
-    if (confirm('Are you sure you want to delete this user?') == false)
-      return;
-    fetch('/users/delete', {
-      method: 'DELETE',
-      body: JSON.stringify({
-        id
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    }).then(() => window.location = '/users');
-  }
-  async function popup(id) {
-    var apiToken = prompt("Please add an Api Token");
-    var tokenSecret = prompt("Please add an Api Token secret");
-    if (apiToken != null && tokenSecret != null) {
-      await fetch('/users/update', {
-        method: 'POST',
+  <script>
+    function deleteUser(id) {
+      if (confirm('Are you sure you want to delete this user?') == false)
+        return;
+      fetch('/users/delete', {
+        method: 'DELETE',
         body: JSON.stringify({
-          id,
-          apiToken,
-          tokenSecret
+          id
         }),
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
       }).then(() => window.location = '/users');
     }
-  }
-</script>
+    async function popup(id) {
+      var apiToken = prompt("Please add an Api Token");
+      var tokenSecret = prompt("Please add an Api Token secret");
+      if (apiToken != null && tokenSecret != null) {
+        await fetch('/users/update', {
+          method: 'POST',
+          body: JSON.stringify({
+            id,
+            apiToken,
+            tokenSecret
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }).then(() => window.location = '/users');
+      }
+    }
+  </script>

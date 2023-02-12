@@ -1,10 +1,10 @@
 <nav>
   <li><a href="/">Home</a></li>
-  <% if (typeof(user.role) !== 'undefined' && user.role === 'Administrator') { %>
+  <% if (typeof(user.role) !=='undefined' && user.role === 'Administrator' ) { %>
   <li><a href="/users">Users</a></li>
   <% } %>
-  <% if (typeof(user.loggedIn) !== 'undefined' && user.loggedIn === true) { %>
-  <% if (typeof(user.api_token) !== 'undefined' && user.api_token !== null) { %>
+  <% if (typeof(user.loggedIn) !=='undefined' && user.loggedIn===true) { %>
+  <% if (typeof(user.api_token) !=='undefined' && user.api_token !==null && user.role !== 'Administrator') { %>
   <li><a href="/nodes">Nodes</a></li>
   <% } %>
   <li>
@@ -15,7 +15,7 @@
   <% } else { %>
   <li><a href="/login">Login</a></li>
   <% } %>
-  <% if (typeof(user.role) !== 'undefined' && user.role === 'Administrator') { %>
+  <% if (typeof(user.role) !=='undefined' && user.role==='Administrator' ) { %>
   <li><a href="/register">Add User</a></li>
   <% } %>
 </nav>
