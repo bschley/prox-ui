@@ -13,8 +13,8 @@ import SQLiteStore from "connect-sqlite3";
 import sequelize from "./sequelize.js";
 const Store = new SQLiteStore(session);
 import session from "express-session";
-import { jwtAuth } from "./auth.js";
 import cors from "cors";
+import jwt from "jsonwebtoken";
 
 // TODO: server.js clean up :)
 
@@ -39,22 +39,15 @@ app.set("layout", "./layouts/main");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
-app.use(
-  session({
-    store: new Store({
-      dir: "./db",
-      db: "sessions.db",
-      table: "sessions",
-      concurrentDB: true,
-    }),
-    resave: true,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 },
-  })
-);
-
 app.use((req, res, next) => {
+  res.locals.user = {};
+  if (req.cookies.AuthToken) {
+    const user = jwt.verify(req.cookies.AuthToken, process.env.JWT_SECRET);
+    req.user = user;
+    if (req.user) {
+      res.locals.user = req.user;
+    }
+  }
   next();
 });
 
@@ -62,7 +55,7 @@ app.use("/", indexRoutes);
 app.use("/login", loginRoutes);
 app.use("/users", usersRoutes);
 app.use("/register", registerRoutes);
-app.use("/nodes", jwtAuth, nodesRoutes);
+app.use("/nodes", nodesRoutes);
 
 app.get("*", (req, res) => {
   res.status(404).send("Page not found: 404");

@@ -5,7 +5,7 @@ import user from "../models/user.model.js";
 import { getHashedPassword } from "../../utils.js";
 import uuid4 from "uuid4";
 
-router.get("/", jwtAuth, jwtAuthAdmin, async (req, res) => {
+router.get("/", jwtAuthAdmin, async (req, res) => {
   const users = await user.findAll();
   res.render("users", { title: "Users", users });
 });
@@ -26,7 +26,7 @@ router.post("/create", jwtAuthAdmin, async (req, res) => {
     });
 });
 
-router.post("/update", async (req, res) => {
+router.post("/update", jwtAuthAdmin, async (req, res) => {
   const { id, apiToken, tokenSecret } = req.body;
 
   await user

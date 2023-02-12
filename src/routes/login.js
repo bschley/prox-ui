@@ -20,15 +20,16 @@ router.post("/", async (req, res) => {
       password: hashedPassword,
     },
   });
+
+  userToLogin.dataValues.password = null;
+  userToLogin.dataValues.loggedIn = true;
   
   if (userToLogin) {
     const authToken = jwt.sign(userToLogin.dataValues, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-
+    
     res.cookie("AuthToken", authToken);
-    req.session.user = userToLogin.dataValues;
-    req.session.loggedIn = true;
     res.redirect("/");
   } else {
     res.render("login", {
@@ -42,9 +43,6 @@ router.post("/", async (req, res) => {
 router.post("/logout", (req, res) => {
   res.clearCookie('AuthToken');
   res.clearCookie('connect.sid');
-  req.session.AuthToken = null;
-  req.session.loggedIn = false;
-  req.session.user = null;
   res.redirect("/login");
 });
 
