@@ -38,7 +38,7 @@ router.post("/update", jwtAuthAdmin, async (req, res) => {
     });
 });
 
-router.post("/changePassword", jwtAuthAdmin, async (req, res) => {
+router.post("/update/password", jwtAuthAdmin, async (req, res) => {
   const { id, password } = req.body;
 
   const changedPassword = getHashedPassword(password);
