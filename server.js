@@ -13,8 +13,6 @@ import jwt from "jsonwebtoken";
 import express from "express";
 import cors from "cors";
 
-// TODO: server.js clean up :)
-
 sequelize
   .sync({ force: process.env.RESET_DB === "true" })
   .then(() => {})
