@@ -2,13 +2,9 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import expressLayouts from "express-ejs-layouts";
 import sequelize_fixtures from "sequelize-fixtures";
-import registerRoutes from "./src/routes/register.js";
-import indexRoutes from "./src/routes/index.js";
-import loginRoutes from "./src/routes/login.js";
-import usersRoutes from "./src/routes/users.js";
-import nodesRoutes from "./src/routes/nodes.js";
 import cookieParser from "cookie-parser";
 import sequelize from "./sequelize.js";
+import routes from "./src/routes.js";
 import jwt from "jsonwebtoken";
 import express from "express";
 import cors from "cors";
@@ -46,11 +42,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", indexRoutes);
-app.use("/login", loginRoutes);
-app.use("/users", usersRoutes);
-app.use("/register", registerRoutes);
-app.use("/nodes", nodesRoutes);
+app.use("/", routes.index);
+app.use("/login", routes.login);
+app.use("/users", routes.users);
+app.use("/register", routes.register);
+app.use("/nodes", routes.nodes);
 
 app.get("*", (req, res) => {
   res.status(404).send("Page not found: 404");
