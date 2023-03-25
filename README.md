@@ -25,3 +25,11 @@ Minimal proxmox ui client to handle simple tasks...
 4. Start the server again.
 
 5. Login as admin: Username admin and password password.
+
+6. Change admin password
+
+7. Add an user
+
+8. Add to an user an proxmox api key and secret
+
+NOTE: User permissions you handle with the api token! That's it!
