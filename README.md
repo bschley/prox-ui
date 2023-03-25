@@ -18,15 +18,15 @@ Minimal proxmox ui client to handle simple tasks...
 
 1. Clone the Repo and rename the .env.dist file to .env and adjust the variables.
 
-2. Run 'npm run start' or node server.js
+2. Run 'npm install' and start the server with 'npm run start' or 'node server.js'
 
 3. Stop the server and set in the .env file the INSTALL variable to false.
 
 4. Start the server again.
 
-5. Login as admin: Username admin and password password.
+5. Login: Username: admin and password: password.
 
-6. Change admin password
+6. Change the admin password
 
 7. Add an user
 
