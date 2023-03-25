@@ -32,4 +32,4 @@ Minimal proxmox ui client to handle simple tasks...
 
 8. Add to an user an proxmox api key and secret
 
-NOTE: User permissions you handle with the api token! That's it!
+NOTE: User permissions are handled by the api token! That's it!
